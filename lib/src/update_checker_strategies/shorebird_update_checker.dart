@@ -19,6 +19,15 @@ class ShorebirdUpdateChecker implements UpdateChecker {
   @override
   Future checkForUpdates() async {
     try {
+      if (hasUpdates) {
+        final updated = await shorebirdCodePush.isNewPatchReadyToInstall();
+        if (updated) {
+          readyToInstall = true;
+          refresh();
+          return;
+        }
+      }
+
       hasUpdates = await shorebirdCodePush.isNewPatchAvailableForDownload();
       refresh();
       if (hasUpdates) {
