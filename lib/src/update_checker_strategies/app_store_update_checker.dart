@@ -18,8 +18,13 @@ class AppStoreUpdateChecker implements UpdateChecker {
 
   @override
   Future checkForUpdates() async {
-    await upgrader.initialize();
-    hasUpdates = upgrader.shouldDisplayUpgrade();
-    refresh();
+    try {
+      await upgrader.initialize();
+      hasUpdates = upgrader.shouldDisplayUpgrade();
+      refresh();
+    } catch (e) {
+      await Future.delayed(const Duration(seconds: 5));
+      checkForUpdates();
+    }
   }
 }
