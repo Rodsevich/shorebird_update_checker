@@ -166,7 +166,10 @@ class _CheckForUpdatesWidgetState extends State<CheckForUpdatesWidget> {
         ),
         const SizedBox(height: 8),
         ElevatedButton(
-          onPressed: StoreRedirect.redirect,
+          onPressed: () => StoreRedirect.redirect(
+            androidAppId: widget.config.androidAppId,
+            iOSAppId: widget.config.iOSAppId,
+          ),
           child: Text(openAppStore),
         ),
       ]);
