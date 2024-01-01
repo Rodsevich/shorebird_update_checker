@@ -11,16 +11,16 @@ class CheckForUpdatesWidget extends StatefulWidget {
   const CheckForUpdatesWidget({
     super.key,
     required this.child,
-    this.config = const UpdateCheckerConfig(),
+    required this.config,
   });
 
   factory CheckForUpdatesWidget.builder(
     BuildContext context,
     Widget? child, {
-    UpdateCheckerConfig? config,
+    required UpdateCheckerConfig config,
   }) =>
       CheckForUpdatesWidget(
-        config: config ?? const UpdateCheckerConfig(),
+        config: config,
         child: child,
       );
 
