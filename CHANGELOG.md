@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Refactor button onPressed method in CheckForUpdatesWidget
+
 ## 0.0.4
 
 * Add iOS and Android app IDs to UpdateCheckerConfig
