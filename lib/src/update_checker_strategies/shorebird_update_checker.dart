@@ -2,23 +2,15 @@ import 'package:shorebird_code_push/shorebird_code_push.dart';
 
 import 'update_checker.dart';
 
-class ShorebirdUpdateChecker implements UpdateChecker {
-  ShorebirdUpdateChecker(this.refresh);
+class ShorebirdUpdateChecker extends UpdateChecker {
+  ShorebirdUpdateChecker(super.refresh);
 
   final shorebirdCodePush = ShorebirdCodePush();
 
   @override
-  bool hasUpdates = false;
-
-  @override
-  bool readyToInstall = false;
-
-  @override
-  void Function() refresh;
-
-  @override
   Future checkForUpdates() async {
     try {
+      checkCount++;
       if (hasUpdates) {
         final updated = await shorebirdCodePush.isNewPatchReadyToInstall();
         if (updated) {
@@ -37,7 +29,9 @@ class ShorebirdUpdateChecker implements UpdateChecker {
       }
     } catch (e) {
       await Future.delayed(const Duration(seconds: 5));
-      checkForUpdates();
+      if (checkCount < 5) {
+        await checkForUpdates();
+      }
     }
   }
 }

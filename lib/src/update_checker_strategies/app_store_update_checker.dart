@@ -2,29 +2,23 @@ import 'package:upgrader/upgrader.dart';
 
 import 'update_checker.dart';
 
-class AppStoreUpdateChecker implements UpdateChecker {
-  AppStoreUpdateChecker(this.refresh);
+class AppStoreUpdateChecker extends UpdateChecker {
+  AppStoreUpdateChecker(super.refresh);
 
   final upgrader = Upgrader();
 
   @override
-  bool hasUpdates = false;
-
-  @override
-  bool readyToInstall = false;
-
-  @override
-  void Function() refresh;
-
-  @override
   Future checkForUpdates() async {
     try {
+      checkCount++;
       await upgrader.initialize();
       hasUpdates = upgrader.shouldDisplayUpgrade();
       refresh();
     } catch (e) {
       await Future.delayed(const Duration(seconds: 5));
-      checkForUpdates();
+      if (checkCount < 5) {
+        await checkForUpdates();
+      }
     }
   }
 }
