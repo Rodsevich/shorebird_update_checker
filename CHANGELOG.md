@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Added canceling the update after 5 failed attempts
+
 ## 0.0.5
 
 * Refactor button onPressed method in CheckForUpdatesWidget
