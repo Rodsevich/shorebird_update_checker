@@ -102,9 +102,11 @@ class _CheckForUpdatesWidgetState extends State<CheckForUpdatesWidget> {
         fit: StackFit.expand,
         children: [
           if (widget.child != null) widget.child!,
-          if (appStoreUpdateChecker.hasUpdates)
+          if (!appStoreUpdateChecker.hasUpdateFailed &&
+              appStoreUpdateChecker.hasUpdates)
             ..._buildForAppStore()
-          else if (shoreUpdateChecker.hasUpdates)
+          else if (!shoreUpdateChecker.hasUpdateFailed &&
+              shoreUpdateChecker.hasUpdates)
             ..._buildForShore(),
         ],
       ),
